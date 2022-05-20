@@ -1,0 +1,16 @@
+.winnerMessage {
+  position: absolute;
+  top: 20vh;
+  left: 35vw;
+  width: 30vw;
+  height: 40vh;
+  background-color: cadetblue;
+  font-size: 3vw;
+  text-align: center;
+}
+.activeMessage {
+  display: block;
+}
+.hiddenMessage {
+  display: none;
+}
