@@ -3,10 +3,10 @@ import "./GameBoard.css";
 import MainBoard from "../MainBoard/MainBoard";
 
 export class GameBoard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {};
+  // }
 
   render() {
     return (

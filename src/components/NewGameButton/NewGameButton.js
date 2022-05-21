@@ -7,7 +7,14 @@ export class NewGameButton extends React.Component {
     this.state = {};
   }
 
+  handleStart = () => {
+    this.props.start();
+  };
   render() {
-    return <button className="newGameButton">{this.props.newGameText}</button>;
+    return (
+      <button className="newGameButton" onClick={this.handleStart}>
+        {this.props.newGameText}
+      </button>
+    );
   }
 }

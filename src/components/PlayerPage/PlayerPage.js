@@ -16,7 +16,7 @@ export class PlayerPage extends React.Component {
         <h1 style={{ fontSize: 40 }}>{this.props.playerNum}</h1>
         <h1 style={{ fontSize: 50 }}>{this.props.totalScore}</h1>
         <div className="currentBlock">
-          <h1>Current</h1>
+          <h1 className="current-label">Current</h1>
           <h1 style={{ fontSize: 50, color: "white" }}>
             {this.props.currentScore}
           </h1>

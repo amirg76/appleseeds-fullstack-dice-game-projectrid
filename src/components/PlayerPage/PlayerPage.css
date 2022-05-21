@@ -1,25 +1,35 @@
 .playerContainer {
   width: 20vw;
-  height: 75vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  background-color: blue;
   opacity: 0;
+  transition: all 0.75s;
 }
 .currentBlock {
-  background-color: red;
+  background-color: #c7365f;
+  opacity: 0.8;
+  border-radius: 9px;
+  color: #fff;
   width: 10vw;
-  height: 20vh;
   display: flex;
+  transition: all 0.75s;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 .active {
   opacity: 1;
+  background-color: rgba(255, 255, 255, 0.4);
 }
 .hidden {
   opacity: 0.5;
+}
+.current-label {
+  text-transform: uppercase;
+  margin-bottom: -1rem;
+  font-size: 1.3vw;
+  color: #ddd;
 }

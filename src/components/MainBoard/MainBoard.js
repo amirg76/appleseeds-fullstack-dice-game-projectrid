@@ -11,38 +11,52 @@ export class MainBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      sumRoll1: 0,
-      sumRoll2: 0,
+      current1: 0,
+      current2: 0,
       random1: 4,
       random2: 5,
       global1: 0,
       global2: 0,
       player1Active: true,
       player2Active: false,
-      userInput: "",
+      userInput: 100,
       winnerStatus: false,
       winnerMessage: false,
       doubleMessage: false,
+      btnEnable: true,
+      startRoll: false,
+      showPic: false,
+      allWin1: 0,
+      allWin2: 0,
 
       getRoll: (roll1, roll2, sum) => {
         this.setState((prevState) => {
           return {
-            doubleMessage: sum === 12 ? true : false,
-            sumRoll1:
+            current1:
               prevState.player1Active && sum !== 12
-                ? prevState.sumRoll1 + sum
-                : prevState.sumRoll1,
-            sumRoll2:
+                ? prevState.current1 + sum
+                : prevState.current1,
+            current2:
               prevState.player2Active && sum !== 12
-                ? prevState.sumRoll2 + sum
+                ? prevState.current2 + sum
                 : sum !== 12
                 ? 0
-                : prevState.sumRoll2,
+                : prevState.current2,
 
             random1: roll1,
             random2: roll2,
           };
         });
+      },
+      checkDouble: (sum) => {
+        this.setState((prevState) => {
+          return {
+            doubleMessage: sum === 12 ? true : false,
+            current1: sum === 12 ? 0 : this.state.current1,
+            current2: sum === 12 ? 0 : this.state.current2,
+          };
+        });
+        if (sum === 12) this.state.changeActive();
       },
       changeActive: () => {
         this.setState((prevState) => {
@@ -56,105 +70,219 @@ export class MainBoard extends React.Component {
         this.setState((prevState) => {
           return {
             global1: !prevState.player1Active
-              ? prevState.global1 + prevState.sumRoll1
+              ? prevState.global1 + prevState.current1
               : prevState.global1,
 
-            sumRoll1: 0,
+            current1: 0,
 
             global2: !prevState.player2Active
-              ? prevState.global2 + prevState.sumRoll2
+              ? prevState.global2 + prevState.current2
               : prevState.global2,
 
-            sumRoll2: 0,
+            current2: 0,
           };
         });
       },
     };
   }
 
+  componentDidMount() {
+    this.loadScoreBoard();
+  }
+
   checkWinner = () => {
     this.setState((prevState) => {
-      console.log(prevState.global1);
-      console.log(prevState.global2);
-      console.log(prevState.userInput);
-      if (prevState.global1 > prevState.userInput) {
+      if (
+        prevState.global1 > prevState.userInput ||
+        prevState.global2 === prevState.userInput
+      )
         return { winnerStatus: 2 };
-      } else if (prevState.global2 > prevState.userInput)
+      else if (
+        prevState.global2 > prevState.userInput ||
+        prevState.global1 === prevState.userInput
+      )
         return { winnerStatus: 1 };
-      else if (prevState.global1 === prevState.userInput) {
-        return { winnerStatus: 1 };
-      } else if (prevState.global2 === prevState.userInput) {
-        return { winnerStatus: 2 };
-      } else return { winnerStatus: null };
+      else return { winnerStatus: null };
+    });
+  };
+  handleMessageDouble = () => {
+    this.setState((prevState) => {
+      return {
+        doubleMessage: false,
+      };
     });
   };
 
   getInput = (event) => {
-    console.log(event.target.value);
     this.setState((prevState) => {
-      // if (this.sumRoll1 > Number(event.target.value)) {
-      console.log(prevState.sumRoll1);
-      console.log(prevState.sumRoll2);
       return {
         userInput: Number(event.target.value),
       };
     });
   };
+  renderScoreBoard = () => {
+    this.setState((prevState) => {
+      return {
+        allWin1:
+          prevState.winnerStatus === 1
+            ? prevState.allWin1 + 1
+            : prevState.allWin1,
+        allWin2:
+          prevState.winnerStatus === 2
+            ? prevState.allWin2 + 1
+            : prevState.allWin2,
+      };
+    });
+  };
+  saveScoreBoard = () => {
+    if (localStorage.getItem("data") == null)
+      localStorage.setItem("data", "[]");
+    this.setState((prevState) => {
+      console.log(prevState.allWin1);
+      const play1Rec = prevState.allWin1;
+      const play2Rec = prevState.allWin2;
 
+      let scoreBoard = JSON.parse(localStorage.getItem("data"));
+      scoreBoard.push({ play1Rec, play2Rec });
+      localStorage.setItem("data", JSON.stringify(scoreBoard));
+    });
+  };
+
+  loadScoreBoard = () => {
+    this.setState((prevState) => {
+      if (localStorage.getItem("data") !== null) {
+        let scoreBoard = JSON.parse(localStorage.getItem("data"));
+        console.log(scoreBoard[scoreBoard.length - 1].play1Rec);
+        return {
+          allWin1: scoreBoard[scoreBoard.length - 1].play1Rec,
+          allWin2: scoreBoard[scoreBoard.length - 1].play2Rec,
+        };
+      }
+    });
+  };
   endGame = () => {
     this.setState((prevState) => {
       if (prevState.winnerStatus) {
-        console.log(prevState.winnerStatus);
         return {
           winnerMessage: true,
-          // player1Active: prevState.winnerStatus === 1 ? true : false,
-          // player2Active: prevState.winnerStatus === 2 ? true : false,
+          btnEnable: false,
         };
       }
+    });
+    this.renderScoreBoard();
+    this.saveScoreBoard();
+  };
+  showPictures = () => {
+    this.setState((prevState) => {
+      if (prevState.startRoll) {
+        return {
+          showPic: !prevState.showPic,
+        };
+      }
+    });
+  };
+
+  startRoll = () => {
+    this.setState((prevState) => {
+      return {
+        startRoll: true,
+        showPic: true,
+      };
+    });
+  };
+
+  newGame = () => {
+    this.setState((prevState) => {
+      return {
+        current1: 0,
+        current2: 0,
+        random1: 4,
+        random2: 5,
+        global1: 0,
+        global2: 0,
+        player1Active: true,
+        player2Active: false,
+        userInput: 100,
+        winnerStatus: false,
+        winnerMessage: false,
+        doubleMessage: false,
+        btnEnable: true,
+        showPic: false,
+        startRoll: false,
+      };
     });
   };
 
   render() {
     return (
       <>
-        <NewGameButton newGameText="NEW GAME" />
         <div className="mainBoard">
+          <div className="scoreBoard">
+            <h1>Winner Table</h1>
+            <h1>Player1</h1>
+            <p className="ply1High">{this.state.allWin1}</p>
+            <h1>Player2</h1>
+            <p className="ply2High">{this.state.allWin2}</p>
+          </div>
           <PlayerPage
             playerNum="Player-1"
             totalScore={this.state.global1}
-            currentScore={this.state.sumRoll1}
+            currentScore={this.state.current1}
             isActive={this.state.player1Active}
           />
           <div className="middleBoard">
-            <DiceDisplay img1={this.state.random1} img2={this.state.random2} />
-            <DiceRoll rollResult={this.state.getRoll} text="ROLL DICE" />
+            <NewGameButton newGameText="🔄 New game" start={this.newGame} />
+            <DiceDisplay
+              img1={this.state.random1}
+              img2={this.state.random2}
+              picEnable={this.state.showPic}
+            />
+            <DiceRoll
+              rollResult={this.state.getRoll}
+              double={this.state.checkDouble}
+              text="🎲 Roll dice"
+              btnStatus={this.state.btnEnable}
+              startPlay={this.startRoll}
+              picEnable={this.showPictures}
+            />
 
             <DiceHold
-              text="HOLD"
-              pl1Active={this.state.player1Active}
-              pl2Active={this.state.player2Active}
+              text="📥 Hold"
               activePlayer={this.state.changeActive}
               globalUpdate={this.state.changeGlobal}
               checkWinner={this.checkWinner}
               winner={this.endGame}
+              btnStatus={this.state.btnEnable}
+              picEnable={this.showPictures}
             />
 
-            <UserInput takeInput={this.getInput} />
+            <UserInput
+              takeInput={this.getInput}
+              btnStatus={this.state.btnEnable}
+              defultInput={this.state.userInput}
+            />
           </div>
           <PlayerPage
             playerNum="Player-2"
             totalScore={this.state.global2}
-            currentScore={this.state.sumRoll2}
+            currentScore={this.state.current2}
             isActive={this.state.player2Active}
           />
         </div>
+
         <Messages
           text={`Congratulation Player${this.state.winnerStatus} Win!!!`}
+          btnText="Start Again"
           messageActive={this.state.winnerMessage}
+          start={this.newGame}
+          id="winner"
         />
         <Messages
           text="You Got Double And Lost Temporary Score"
+          btnText="Continue"
           messageActive={this.state.doubleMessage}
+          continuePlay={this.handleMessageDouble}
+          id="continue"
         />
       </>
     );

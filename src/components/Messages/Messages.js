@@ -5,6 +5,12 @@ export class Messages extends React.Component {
     super(props);
     this.state = {};
   }
+  handleContinue = () => {
+    this.props.continuePlay();
+  };
+  handleStart = () => {
+    this.props.start();
+  };
 
   render() {
     return (
@@ -14,6 +20,14 @@ export class Messages extends React.Component {
         }`}
       >
         {this.props.text}
+        <button
+          className="messageBtn"
+          onClick={
+            this.props.id === "winner" ? this.handleStart : this.handleContinue
+          }
+        >
+          {this.props.btnText}
+        </button>
       </div>
     );
   }

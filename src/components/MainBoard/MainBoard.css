@@ -1,20 +1,40 @@
 .mainBoard {
-  width: 90vw;
-  height: 90vh;
+  width: 80vw;
+  height: 60vh;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
-  /* background-color: yellow; */
+
+  background-color: rgba(255, 255, 255, 0.35);
+
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.25);
+  border-radius: 9px;
 }
 .middleBoard {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: blue;
-  height: 85vh;
+  /* background-color: blue; */
+  width: 20vw;
+  height: 60vh;
 }
-.playerNum .totalScore {
-  font-size: 3vh;
-  background-color: antiquewhite;
+.scoreBoard {
+  width: 20vw;
+  height: 60vh;
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: rgb(148, 122, 208);
+  opacity: 1;
+
+  transition: all 0.75s;
+}
+
+.ply1High,
+.ply2High {
+  font-size: 1.5vw;
+  font-weight: 600;
 }

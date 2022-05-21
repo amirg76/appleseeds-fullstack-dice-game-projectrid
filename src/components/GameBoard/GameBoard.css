@@ -1,9 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+body {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+}
 .styleMain {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-  align-content: center;
   width: 100vw;
   height: 100vh;
+  background: linear-gradient(325deg, #6f00fc 0%, #fc7900 50%, #fcc700 100%);
+  /* linear-gradient(to top left, #753682 0%, #bf2e34 100%); */
 }

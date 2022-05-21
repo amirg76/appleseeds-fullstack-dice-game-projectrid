@@ -8,7 +8,11 @@ export class DiceDisplay extends React.Component {
 
   render() {
     return (
-      <div className="imgGroup">
+      <div
+        className={`imgGroup ${
+          this.props.picEnable ? "activeImg" : "hiddenImg"
+        }`}
+      >
         <div className={`img${this.props.img1}`}></div>
         <div className={`img${this.props.img2}`}></div>
       </div>

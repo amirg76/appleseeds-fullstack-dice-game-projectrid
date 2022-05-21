@@ -1,5 +1,11 @@
 .rollDiceBtn {
   width: 10vw;
   height: 5vh;
-  background-color: aqua;
+  cursor: pointer;
+}
+.btn-disable {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #c0c0c0;
+  background-color: #ffffff;
 }

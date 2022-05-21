@@ -16,15 +16,23 @@ export class UserInput extends React.Component {
         userInput: Number(event.target.value),
       };
     });
-
-    // console.log(this.props);
   }
+
   inputMove = (event) => {
-    // handleInput(event);
+    // this.props.defultInput();
     this.props.takeInput(event);
   };
   render() {
-    return <input className="inputTotal" onChange={this.inputMove}></input>;
+    return (
+      <input
+        className={`inputTotal newGameButton ${
+          !this.props.btnStatus ? "btn-disable" : null
+        }`}
+        onChange={this.inputMove}
+        // placeholder={this.inputMove}
+        placeholder={this.props.defultInput}
+      ></input>
+    );
   }
 }
 export default UserInput;

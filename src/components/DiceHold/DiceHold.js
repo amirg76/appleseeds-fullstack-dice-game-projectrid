@@ -11,15 +11,23 @@ export class DiceHold extends React.Component {
   };
 
   handleHold = () => {
+    this.props.picEnable();
     this.props.activePlayer();
     this.props.globalUpdate();
     this.props.checkWinner();
-    this.props.winner();
+    setTimeout(() => {
+      this.props.winner();
+    }, 500);
   };
 
   render() {
     return (
-      <button className="holdDiceBtn" onClick={this.handleHold}>
+      <button
+        className={`holdDiceBtn newGameButton ${
+          !this.props.btnStatus ? "btn-disable" : null
+        }`}
+        onClick={this.handleHold}
+      >
         {this.props.text}
       </button>
     );
