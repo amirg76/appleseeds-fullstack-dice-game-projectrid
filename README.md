@@ -1,12 +1,14 @@
 # Dice Game
 
+<img src="assets\screen-shot\dice-game.png" width="500">
+
 **Version 1.00**
 
 Code and document for the Dice Game.
 
 This is project that made in appleSeeds bootCamp.
 
-\*\* How I Build The Project
+## How I Build The Project
 
 I use REACT to build the project.
 
@@ -18,15 +20,18 @@ I build ScoreBoard for the game that keep the results
 
 - In LOCAL STORGE WITH JSON
 
-\*\* What Languege I Use
+### What Languege I Use
 
 - I made it with CSS AND JAVA-SCRIPT AND REACT.
 - I use a lot of method and separte the code
-- to different files.
+ to different files.
 
 - REACT COMPONENTS
 - LOCAL STOARGE
 
+---
+## App Link
+[Dice Game App](https://silly-griffin-9bb0b6.netlify.app/)
 ---
 
 ## Contributors
