@@ -1,6 +1,6 @@
 # Dice Game
 
-<img src="assets\screen-shot\dice-game.png" width="500">
+<img src="public\assets\dice-game.png" width="500">
 
 **Version 1.00**
 
