@@ -12,7 +12,7 @@ export class NewGameButton extends React.Component {
   };
   render() {
     return (
-      <button className="newGameButton" onClick={this.handleStart}>
+      <button className="newGameButton" onClick={this.props.onStart}>
         {this.props.newGameText}
       </button>
     );

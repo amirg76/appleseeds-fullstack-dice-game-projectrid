@@ -231,7 +231,7 @@ export class MainBoard extends React.Component {
             isActive={this.state.player1Active}
           />
           <div className="middleBoard">
-            <NewGameButton newGameText="🔄 New game" start={this.newGame} />
+            <NewGameButton newGameText="🔄 New game" start={this.newGame} onStart={()=>this.newGame()}/>
             <DiceDisplay
               img1={this.state.random1}
               img2={this.state.random2}
